@@ -4,27 +4,27 @@ function _createProviderComponent (token) {
   return defineComponent({
     props: ['value'],
     setup (props, { slots }) {
-      provide(token, toRef(props, 'value'))
-      return () => slots.default()
+      provide(token, toRef(props, 'value'));
+      return () => slots.default();
     },
-  })
+  });
 }
 
 function _createConsumerComponent (token, defaultValue) {
   return (props, { slots }) => {
-    const injection = unref(inject(token, defaultValue))
-    return slots.default(injection)
-  }
+    const injection = unref(inject(token, defaultValue));
+    return slots.default(injection);
+  };
 }
 
 export function createContext(defaultValue) {
-  const token = Symbol()
+  const token = Symbol();
   return {
     _defaultValue: defaultValue,
     _token: token,
     Provider: _createProviderComponent(token),
     Consumer: _createConsumerComponent(token, defaultValue)
-  }
+  };
 }
 
 export function forwardRef() {
@@ -210,7 +210,7 @@ export function useRef(initialValue) {
 }
 
 export function useContext(context) {
-  return unref(inject(context._token, context._defaultValue))
+  return unref(inject(context._token, context._defaultValue));
 }
 
 export function useCallback(cb, deps) {
